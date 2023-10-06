@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mi Mapa Interactivo</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <style>
+        #map {
+            height: 1000px;
+            width: 100%;
+        }
+
+        #menu {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: white;
+            padding: 10px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div id="menu">
+        <h2>Lugares Turísticos en CDMX</h2>
+        <label for="lugares">Selecciona un lugar:</label>
+        <select id="lugares">
+            <option value="19.3559, -99.1625">Museo Frida Kahlo</option>
+            <option value="19.4200, -99.1810">Castillo de Chapultepec</option>
+            <option value="19.4326, -99.1332">Zócalo y Catedral Metropolitana</option>
+            <option value="19.2596, -99.1177">Xochimilco</option>
+            <option value="19.4260, -99.1861">Museo Nacional de Antropología</option>
+            <option value="19.6850, -98.8708">Teotihuacán</option>
+            <option value="19.3483, -99.1623">Coyoacán</option>
+            <option value="19.4401, -99.2015">Museo Soumaya</option>
+            <option value="19.4841, -99.1176">Basílica de Guadalupe</option>
+            <option value="19.4225, -99.1817">Bosque de Chapultepec</option>
+        </select>
+        <button onclick="mostrarLugar()">Mostrar Lugar</button>
+    </div>
+    <div id="map"></div>
+
+    <script>
+        var map;
+
+        function initMap() {
+            map = L.map('map').setView([19.4326, -99.1332], 12); // Ciudad de México (CDMX)
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+            }).addTo(map);
+
+            L.marker([19.4326, -99.1332]).addTo(map)
+                .bindPopup('Ciudad de México (CDMX)')
+                .openPopup();
+        }
+
+        function mostrarLugar() {
+            var lugar = document.getElementById("lugares").value.split(", ");
+            var latitud = parseFloat(lugar[0]);
+            var longitud = parseFloat(lugar[1]);
+
+            map.setView([latitud, longitud], 15);
+            L.marker([latitud, longitud]).addTo(map)
+                .bindPopup(document.getElementById("lugares").options[document.getElementById("lugares").selectedIndex].text)
+                .openPopup();
+        }
+
+        initMap();
+    </script>
+</body>
+</html>
+
+    <style>
+        #map {
+            height: 1000px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+
+    <script>
+        function initMap() {
+            var map = L.map('map').setView([19.4326, -99.1332], 12); // Ciudad de México (CDMX)
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+            }).addTo(map);
+
+            L.marker([19.4326, -99.1332]).addTo(map)
+                .bindPopup('Ciudad de México (CDMX)')
+                .openPopup();
+        }
+    </script>
+
+
+    
+</body>
+</html>
+
